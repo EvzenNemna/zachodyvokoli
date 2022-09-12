@@ -5,6 +5,30 @@ function initMap() {
       center: uluru,
     });
 
+    var markerData;
+
+    $.ajax({
+      type: "GET",
+      url: "get_toilets.php",
+      success: function(data)
+      {
+        markerData = data.toString();
+        const parsedJSON = JSON.parse(markerData);
+
+        for (var i = 0; i < parsedJSON.length; i++) {
+          var latitude = parsedJSON[i]["latitude"];
+          var longitude = parsedJSON[i]["longitude"];
+
+          var markerLocation = { lat: Number(latitude), lng: Number(longitude) };
+
+          new google.maps.Marker({
+            position: markerLocation,
+            map
+          });
+        }
+      }
+    });
+
     google.maps.event.addListener(map, 'click', function (e) {
       var location = e.latLng;
       var data = "{" + '"latitude": ' + location.lat() + ',"longitude": ' + location.lng() + '}';
@@ -33,4 +57,5 @@ function initMap() {
       });
     });
   }
+
   window.initMap = initMap;

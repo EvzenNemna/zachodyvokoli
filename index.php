@@ -17,7 +17,7 @@
         <div class="search-bar"><H1>Zachody v okolí</H1></div>
     </main>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAXEKoWp0v-R66KG26rrSqXKQY_ieCFzk&callback=initMap&v=weekly"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVly2hocBKgl_BpElxCu9oVanhBbHedH0&callback=initMap&v=weekly"
       defer
     ></script>
 </body>
