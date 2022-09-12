@@ -1,3 +1,7 @@
+* {
+    font-family: Tahoma, Verdana, sans-serif;
+    font-style: normal;
+}
 body{
     margin: 0;
     padding: 0;
@@ -13,12 +17,16 @@ main{
 
 #map{
     width: 78%;
-    height: 933.4px;
-    border: 3px solid red;
+    height: 900px;
 }
 
 .search-bar{
     width: 22%;
-    height: 933.4px;
-    border: 3px solid green;
+    height: 900px
+}
+
+.search-bar h1{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
 }

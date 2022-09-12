@@ -6,8 +6,19 @@ function initMap() {
     });
 
     google.maps.event.addListener(map, 'click', function (e) {
- 
       var location = e.latLng;
+      var data = "{" + '"latitude": ' + location.lat() + ',"longitude": ' + location.lng() + '}';
+      $.ajax({
+        type: "POST",
+        url: "send_toilet.php",
+        dataType: 'json',
+        cache: false,
+        data: data,
+        success: function(data)
+        {
+          alert(data); 
+        }
+      });
 
       var marker = new google.maps.Marker({
           position: location,
@@ -21,11 +32,5 @@ function initMap() {
           infoWindow.open(map, marker);
       });
     });
-
-    const marker = new google.maps.Marker({
-      position: uluru,
-      map: map,
-    });
   }
-  
   window.initMap = initMap;
