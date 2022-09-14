@@ -14,7 +14,25 @@
 <body>
     <main>
         <div id="map"></div>
-        <div class="search-bar"><H1>Zachody v okolí</H1></div>
+        <div class="search-bar">
+            <H1>Zachody v okolí</H1>
+            <div class="search-bar-box">
+                <h1>test</h1>
+            </div>
+            <div>
+                <form>
+                    <label for="popis">Popis</label><br>
+                    <input type="text" name="popis" id="popis"><br>
+                    <label for="iszdarma">Dostupnost: </label><br>
+                    <input type="radio" id="zdarma" value="Zdarma" name="radio">
+                    <label for="zdarma">Zdarma</label><br>
+                    <input type="radio" id="placeny" value="Placeny" name="radio">
+                    <label for="placeny">Placeny</label><br>
+                    <label for="kod">PIN:</label>
+                    <input type="text"  name="kod" maxlength="4"  id="kod" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required/>
+                </form>
+            </div>
+        </div>
     </main>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVly2hocBKgl_BpElxCu9oVanhBbHedH0&callback=initMap&v=weekly"
