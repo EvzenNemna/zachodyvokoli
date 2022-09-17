@@ -26,13 +26,21 @@ function initMap() {
         infoWindow.open(map, marker);
     });
   }
-
   var currentLocation = { lat: 50.07545485464347, lng: 14.425991197854593 };
-
+window.onload = function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+function showPosition(position) {
   const map = new google.maps.Map(document.getElementById("map"), {
     zoom: 17,
-    center: currentLocation,
+    center: {lat: position.coords.latitude, lng: position.coords.longitude},
   });
+}
+  
 
   var markerData;
 
@@ -115,5 +123,4 @@ function initMap() {
   });
 });
 }
-
 window.initMap = initMap;
