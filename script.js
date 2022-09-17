@@ -39,9 +39,9 @@ function initMap() {
     {
       markerData = data.toString();
       const parsedJSON = JSON.parse(markerData);
-      var pin = "";
 
       for (var i = 0; i < parsedJSON.length; i++) {
+        var pin = "";
         var latitude = parsedJSON[i]["latitude"];
         var longitude = parsedJSON[i]["longitude"];
         var isFree = "Placene";
@@ -86,24 +86,9 @@ function initMap() {
     if(radio == "Zdarma"){
       kod = '"0000"';
     } else {
-       kod = $("input[name='kod']").val();
+      kod = $("input[name='kod']").val();
     }
-    var latitude = location.lat();
-    var longitude = location.lng();
-    var data = "{" + '"latitude": ' + latitude + ',"longitude": ' + longitude + ',"isZadarmo": "' + radio + '","pin": ' + kod +'}';
-    console.log(data);
-    $.ajax({
-      type: "POST",
-      url: "send_toilet.php",
-      dataType: 'json',
-      cache: false,
-      data: data,
-      success: function(data)
-      {
-        //alert(data); 
-      }
-    });
-    
+
     var fullForm = document.getElementById("popis");
     var isCheckedFree = document.getElementById("zdarma").checked;
     var isCheckedPaid = document.getElementById("placeny").checked;
@@ -118,14 +103,26 @@ function initMap() {
       var isCheckedFree = document.getElementById("zdarma").checked = true;
       document.getElementById("kod").value = null;
       document.getElementById("kod").disabled = true;
+
+      var latitude = location.lat();
+      var longitude = location.lng();
+      var data = "{" + '"latitude": ' + latitude + ',"longitude": ' + longitude + ',"isZadarmo": "' + radio + '","pin": ' + kod +'}';
+      console.log(data);
+      $.ajax({
+        type: "POST",
+        url: "send_toilet.php",
+        dataType: 'json',
+        cache: false,
+        data: data,
+        success: function(data)
+        {
+          //alert(data); 
+        }
+      });
     } else {
       alert("Zadejte parametry toalety.");
     }
   google.maps.event.addListener(marker, "click", function (e) {
-    var content = 'Latitude: ' + latitude + '<br />Longitude: ' + longitude + "<br />" + radio + "<br />" + kod;
-    if(kod == '"0000"'){
-      content = 'Latitude: ' + latitude + '<br />Longitude: ' + longitude + "<br />" + radio + "<br />";
-    }
     var infoWindow = new google.maps.InfoWindow({
         content: content,
     });
