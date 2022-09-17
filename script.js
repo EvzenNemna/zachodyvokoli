@@ -17,6 +17,7 @@ function newMarkerButton() {
 }
 
 function initMap() {
+  var map;
   function addInfoWindow(marker, message) {
     var infoWindow = new google.maps.InfoWindow({
         content: message
@@ -26,24 +27,11 @@ function initMap() {
         infoWindow.open(map, marker);
     });
   }
-  var currentLocation = { lat: 50.07545485464347, lng: 14.425991197854593 };
-window.onload = function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-function showPosition(position) {
-  const map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     zoom: 17,
-    center: {lat: position.coords.latitude, lng: position.coords.longitude},
+
   });
-}
-  
-
-  var markerData;
-
+    var markerData;
   $.ajax({
     type: "GET",
     url: "get_toilets.php",
@@ -76,16 +64,34 @@ function showPosition(position) {
       }
     }
   });
-
+  var ltlg;
+   function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+  function showPosition(position) {
+    var ltlg = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    map.panTo(ltlg);
+  }
+  getLocation();
   google.maps.event.addListener(map, 'click', function (e) {
     var location = e.latLng;
     //rozsirit db a kod o poopis
     var popis = $("#popis").val();
     var radio = $("input[name='radio']:checked").val();
-    var kod = $("input[name='kod']").val();
+    var kod = "";
+    if(radio == "Zdarma"){
+      kod = '"0000"';
+    } else {
+       kod = $("input[name='kod']").val();
+    }
     var latitude = location.lat();
     var longitude = location.lng();
     var data = "{" + '"latitude": ' + latitude + ',"longitude": ' + longitude + ',"isZadarmo": "' + radio + '","pin": ' + kod +'}';
+    console.log(data);
     $.ajax({
       type: "POST",
       url: "send_toilet.php",
@@ -94,7 +100,7 @@ function showPosition(position) {
       data: data,
       success: function(data)
       {
-        alert(data); 
+        //alert(data); 
       }
     });
     
@@ -113,11 +119,15 @@ function showPosition(position) {
       document.getElementById("kod").value = null;
       document.getElementById("kod").disabled = true;
     } else {
-      alert("Zadejte parametry toalety.")
+      alert("Zadejte parametry toalety.");
     }
   google.maps.event.addListener(marker, "click", function (e) {
+    var content = 'Latitude: ' + latitude + '<br />Longitude: ' + longitude + "<br />" + radio + "<br />" + kod;
+    if(kod == '"0000"'){
+      content = 'Latitude: ' + latitude + '<br />Longitude: ' + longitude + "<br />" + radio + "<br />";
+    }
     var infoWindow = new google.maps.InfoWindow({
-        content: 'Latitude: ' + latitude + '<br />Longitude: ' + longitude + "<br />" + radio + "<br />" + kod
+        content: content,
     });
     infoWindow.open(map, marker);
   });

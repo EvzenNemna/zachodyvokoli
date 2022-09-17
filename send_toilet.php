@@ -2,11 +2,11 @@
 require_once "db.php";
 $json = @file_get_contents('php://input');
 $array = json_decode($json, true);
-echo strval($array["isZadarmo"]);
+echo var_dump($array);
 $sql ="select * from zachod";
 $result = $conn->query($sql);
 $count_zachod = $result->num_rows;
-
+echo strval($array["isZadarmo"]);
 $lat = strval($array["latitude"]);
 $lng = strval($array["longitude"]);
 $zdarma = 0;
