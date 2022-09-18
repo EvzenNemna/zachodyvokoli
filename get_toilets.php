@@ -12,8 +12,9 @@ if ($result->num_rows > 0) {
         $longitude = $row["longitude"];
         $is_free = $row["zdarma"];
         $entry_code = $row["vstupni_kod"];
+        $description = $row["popis"];
 
-        array_push($marker_information, array("latitude" => $latitude, "longitude" => $longitude, "is_free" => $is_free, "entry_code" => $entry_code));
+        array_push($marker_information, array("latitude" => $latitude, "longitude" => $longitude, "is_free" => $is_free, "entry_code" => $entry_code, "description" => $description));
     }
 }
 

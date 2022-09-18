@@ -18,8 +18,9 @@ function newMarkerButton() {
 
 function initMap() {
   var map;
-  function addInfoWindow(marker, message) {
+  function addInfoWindow(marker, message, title) {
     var infoWindow = new google.maps.InfoWindow({
+        title: title,
         content: message
     });
 
@@ -59,8 +60,10 @@ function initMap() {
           position: markerLocation,
           map
         });
-        var contentString = 'Latitude: ' + markerLocation.lat + '<br />Longitude: ' + markerLocation.lng + "<br />" + isFree + "<br />" + pin; 
-        addInfoWindow(newMarker,contentString);
+        var title = parsedJSON[i]["description"];
+        console.log(title)
+        var contentString = "<h3>"+title+'</h3>Latitude: ' + markerLocation.lat + '<br />Longitude: ' + markerLocation.lng + "<br />" + isFree + "<br />" + pin; 
+        addInfoWindow(newMarker,contentString, title);
       }
     }
   });
@@ -106,7 +109,7 @@ function initMap() {
 
       var latitude = location.lat();
       var longitude = location.lng();
-      var data = "{" + '"latitude": ' + latitude + ',"longitude": ' + longitude + ',"isZadarmo": "' + radio + '","pin": ' + kod +'}';
+      var data = "{" + '"latitude": ' + latitude + ',"longitude": ' + longitude + ',"isZadarmo": "' + radio + '","pin": ' + kod +',"popis": "' + popis + '"}';
       console.log(data);
       $.ajax({
         type: "POST",
@@ -122,6 +125,11 @@ function initMap() {
     } else {
       alert("Zadejte parametry toalety.");
     }
+    if(kod == '"0000"'){
+      kod = ""
+    }
+    var content = "<h3>"+popis+'</h3>Latitude: ' + latitude + '<br />Longitude: ' + longitude + "<br />" + radio + "<br />" + kod; ;
+
   google.maps.event.addListener(marker, "click", function (e) {
     var infoWindow = new google.maps.InfoWindow({
         content: content,

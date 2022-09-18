@@ -9,11 +9,13 @@ $count_zachod = $result->num_rows;
 echo strval($array["isZadarmo"]);
 $lat = strval($array["latitude"]);
 $lng = strval($array["longitude"]);
+$popis = $array["popis"];
 $zdarma = 0;
 if(strval($array["isZadarmo"]) == "Zdarma"){
     $zdarma = "1";
 }
 $vstupni_kod = intval($array["pin"]);
-
-$sql ="insert into zachod values($count_zachod+1,"."$lat".",$lng,"."$zdarma,"."$vstupni_kod".");";
+echo $popis;
+$sql ="insert into zachod(id,popis,latitude,longitude,zdarma,vstupni_kod) values($count_zachod+1,"."'$popis',"."$lat".",$lng,"."$zdarma,"."$vstupni_kod".");";
+echo $sql;
 $result = $conn->query($sql);
