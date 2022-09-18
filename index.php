@@ -12,11 +12,17 @@
     <title>Zachody v okolí</title>
 </head>
 <body>
+    <header>
+        <div class="navbar">
+            <h2 class="responsive-header">Záchody v okolí</h2>
+            <button type="button" onclick="openMenu()" class="open_menu">+</button>
+        </div>
+    </header>
     <main>
         <div id="map"></div>
-        <div class="search-bar">
+        <div class="search-bar" id="searchbar">
             <h1 id="main_heading">Záchody v okolí</h1>
-            <button type="button" onclick="newMarkerButton()" class="add_marker_button">Přidat</button>
+            <button type="button" onclick="newMarkerButton()" class="add_marker_button" id="add_new_marker_button">Přidat</button>
             <div class="new_marker_information_wrapper" id="new_marker_information_wrapper">
                 <form id="new_marker_form">
                     <label for="popis">Popis</label><br>
@@ -27,7 +33,8 @@
                     <input type="radio" id="placeny" value="Placeny" name="radio" onclick="radioCheck()">
                     <label for="placeny">Placeny</label><br>
                     <label for="kod">PIN:</label><br>
-                    <input type="text" name="kod" maxlength="4" disabled id="kod" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required/>
+                    <input type="text" name="kod" maxlength="4" disabled id="kod" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required/><br>
+                    <button type="button" onclick="closeMenu()" class="close_menu" id="close_menu">Přidat</button>
                 </form>
             </div>
             <!-- <div class="search-bar-box">
