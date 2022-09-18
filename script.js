@@ -16,6 +16,28 @@ function newMarkerButton() {
   }
 }
 
+function closeMenu() {
+  var map = document.getElementById("map");
+  var searchbar = document.getElementById("searchbar");
+
+  searchbar.style.display = "none";
+  map.style.display = "block";
+}
+
+function openMenu() {
+  var map = document.getElementById("map");
+  var searchbar = document.getElementById("searchbar");
+
+  if (searchbar.style.display === "block") {
+    searchbar.style.display = "none";
+    map.style.display = "block";
+    newMarkerButton();
+  } else {
+    searchbar.style.display = "block";
+    map.style.display = "none";
+  }
+}
+
 function initMap() {
   var map;
   function addInfoWindow(marker, message, title) {
