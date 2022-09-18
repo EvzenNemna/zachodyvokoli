@@ -22,6 +22,7 @@ function closeMenu() {
 
   searchbar.style.display = "none";
   map.style.display = "block";
+  newMarkerButton();
 }
 
 function openMenu() {
@@ -35,6 +36,7 @@ function openMenu() {
   } else {
     searchbar.style.display = "block";
     map.style.display = "none";
+    newMarkerButton();
   }
 }
 
