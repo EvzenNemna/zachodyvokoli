@@ -1,8 +1,11 @@
+
 function radioCheck() {
   if (document.getElementById("placeny").checked) {
-    document.getElementById("kod").disabled = false;
+    document.getElementById("kod").hidden = false;
+    document.getElementById("kodL").hidden = false;
   } else {
-    document.getElementById("kod").disabled = true;
+    document.getElementById("kod").hidden = true;
+    document.getElementById("kodL").hidden = true;
     document.getElementById("kod").value = null;
   }
 }
@@ -25,6 +28,14 @@ function closeMenu() {
   newMarkerButton();
 }
 
+function showMessage() {
+  if (document.getElementById("popis").value.length) {
+    document.getElementById("alert-message").style.display = "block";
+  } else {
+    document.getElementById("alert-message").style.display = "none";
+  }
+}
+
 function openMenu() {
   var map = document.getElementById("map");
   var searchbar = document.getElementById("searchbar");
@@ -42,6 +53,8 @@ function openMenu() {
 
 function initMap() {
   var map;
+  document.getElementById("kod").hidden = true;
+  document.getElementById("kodL").hidden = true;
   function addInfoWindow(marker, message, title) {
     var infoWindow = new google.maps.InfoWindow({
         title: title,
@@ -106,7 +119,6 @@ function initMap() {
   getLocation();
   google.maps.event.addListener(map, 'click', function (e) {
     var location = e.latLng;
-    //rozsirit db a kod o poopis
     var popis = $("#popis").val();
     var radio = $("input[name='radio']:checked").val();
     var kod = "";
@@ -130,6 +142,7 @@ function initMap() {
       var isCheckedFree = document.getElementById("zdarma").checked = true;
       document.getElementById("kod").value = null;
       document.getElementById("kod").disabled = true;
+      document.getElementById("alert-message").style.display = "none";
 
       var latitude = location.lat();
       var longitude = location.lng();
@@ -160,6 +173,10 @@ function initMap() {
     });
     infoWindow.open(map, marker);
   });
+  $("#success-alert").hide();
+  $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#success-alert").slideUp(500);
+});
 });
 }
 window.initMap = initMap;

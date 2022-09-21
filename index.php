@@ -12,6 +12,9 @@
     <title>Zachody v okolí</title>
 </head>
 <body>
+    <div class="alert alert-success" id="success-alert">
+        <p><strong>Povedlo se! </strong>Záchod byl úspěšně přidán</p>
+    </div>  
     <header>
         <div class="navbar">
             <h2 class="responsive-header">Záchody v okolí</h2>
@@ -25,17 +28,19 @@
             <button type="button" onclick="newMarkerButton()" class="add_marker_button" id="add_new_marker_button">Přidat</button>
             <div class="new_marker_information_wrapper" id="new_marker_information_wrapper">
                 <form id="new_marker_form">
+                    <h2>Vyplňte údaje o toaletě</h2>
                     <label for="popis">Popis</label><br>
-                    <input type="text" name="popis" id="popis"><br>
+                    <input type="text" name="popis" id="popis" onkeyup="showMessage()"><br>
                     <label for="iszdarma">Dostupnost: </label><br>
                     <input type="radio" id="zdarma" value="Zdarma" name="radio" onclick="radioCheck()" checked>
                     <label for="zdarma">Zdarma</label><br>
                     <input type="radio" id="placeny" value="Placeny" name="radio" onclick="radioCheck()">
                     <label for="placeny">Placeny</label><br>
-                    <label for="kod">PIN:</label><br>
-                    <input type="text" name="kod" maxlength="4" disabled id="kod" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required/><br>
+                    <label for="kod" id="kodL">PIN:</label><br>
+                    <input type="text" name="kod" maxlength="4" id="kod" pattern="\d{4}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"  required/><br>
                     <button type="button" onclick="closeMenu()" class="close_menu" id="close_menu">Přidat</button>
                 </form>
+                <p id="alert-message">Nyní přidejte toaletu kliknutím na místo na mapě</p>
             </div>
             <!-- <div class="search-bar-box">
                 <h1>test</h1>
